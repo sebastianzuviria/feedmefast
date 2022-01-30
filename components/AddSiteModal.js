@@ -28,7 +28,6 @@ const AddSiteModal = ({children}) => {
     const { register, handleSubmit, reset } = useForm()
     const toast = useToast()
     const auth = useAuth()
-    const { data } = useSWR('/api/sites', fetcher)
 
     const onCreateSite = async ({name, url}) => {
       const newSite = {
