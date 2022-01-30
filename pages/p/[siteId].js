@@ -13,7 +13,7 @@ import { useAuth } from "@/lib/auth";
 import { Timestamp } from "firebase/firestore";
 import { createFeedback } from "@/lib/db";
 
-export async function getStaticProps(context) {
+export const getStaticProps = async (context) => {
     const siteId = context.params.siteId
     const { feedback } = await getAllFeedback(siteId)
 
@@ -24,7 +24,7 @@ export async function getStaticProps(context) {
     }
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
     const { sites } = await getAllSites()
     const paths = sites.map(site => ({
         params: {
