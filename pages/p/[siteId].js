@@ -1,3 +1,4 @@
+
 import { getAllFeedback, getAllSites } from "@/lib/db-admin";
 import Feedback from '@/components/Feedback'
 import {
@@ -57,6 +58,7 @@ const SiteFeedback = ({ initialFeedback }) => {
             }
         </Box>
     )
+
 }
 
 export default SiteFeedback
