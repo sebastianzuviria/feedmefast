@@ -1,17 +1,14 @@
-import db from '@/lib/firebase-admin'
+import { getUserSites } from '@/lib/db-admin'
+import { auth } from '@/lib/firebase-admin'
 
-export default async function (_, res) {
+export default async function (req, res) {
   try {
-    const sitesRef = db.collection('sites')
-    const QuerySnapshot = await sitesRef.get()
+    const { uid } = await auth.verifyIdToken(req.headers.token)
+    const sites = await getUserSites(uid)
   
-    const sites = QuerySnapshot.docs.map(doc => {
-      return { id: doc.id, ...doc.data(), createdAt: doc.data().createdAt.toDate()}
-    })
-    res.status(200).json({sites})
-    
+    res.status(200).json(sites)
   } catch (error) {
-    console.log(error)
+     res.status(500).json({ error })
   }
-
+ 
 }
