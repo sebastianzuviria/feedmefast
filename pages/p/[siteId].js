@@ -21,6 +21,7 @@ export async function getStaticProps(context) {
       props: {
           initialFeedback: feedback
       },
+      revalidate: 1
     }
 }
 
@@ -34,7 +35,7 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: false
+      fallback: true
     };
 }
 
@@ -78,7 +79,7 @@ const SiteFeedback = ({ initialFeedback }) => {
             </Box>
             
             {
-                allFeedback.map(feedback => (
+                allFeedback?.map(feedback => (
                     <Feedback key={feedback.id} {...feedback}/>
                 ))
             }
