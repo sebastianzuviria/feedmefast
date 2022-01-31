@@ -79,7 +79,7 @@ const SiteFeedback = ({ initialFeedback }) => {
             </Box>
             
             {
-                allFeedback.map(feedback => (
+                allFeedback?.map(feedback => (
                     <Feedback key={feedback.id} {...feedback}/>
                 ))
             }
