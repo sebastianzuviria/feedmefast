@@ -7,7 +7,7 @@ import '@/styles/globals.css'
 
 const themeProvider = extendTheme({ customTheme })
 
-const GlobalStyle = ({ children }) => {
+const GlobalSettings = ({ children }) => {
   return (
     <>
       <Head>
@@ -37,7 +37,7 @@ function App({ Component, pageProps }) {
   return (
     <ChakraProvider theme={themeProvider}>
         <AuthProvider>
-          <GlobalStyle />
+          <GlobalSettings />
           <Component {...pageProps} />
         </AuthProvider>
     </ChakraProvider>

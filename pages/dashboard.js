@@ -7,8 +7,8 @@ import fetcher from '@/utils/fetcher'
 import SiteTable from '@/components/SiteTable'
 
 const Dashboard = () => {
-  const auth = useAuth()
-  const { data } = useSWR('/api/sites', fetcher)
+  const { user } = useAuth()
+  const { data } = useSWR(user ? { url: "/api/sites", token: user.token } : null, fetcher)
 
   if(!data) {
     return (
@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   return (
     <DashboardShell>
-      { data.sites.length > 0 ? <SiteTable sites={data.sites}/> : <EmptyState />}
+      { data.sites?.length > 0 ? <SiteTable sites={data.sites}/> : <EmptyState />}
     </DashboardShell>
   )
 }

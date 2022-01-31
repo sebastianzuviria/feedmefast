@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useAuth } from '@/lib/auth'
 import { Button, Code, Flex, Heading, Text } from '@chakra-ui/react'
 import { Logo } from '@/styles/icons'
@@ -7,6 +8,16 @@ const Home = () => {
 
   return (
     <Flex as="main" direction="column" align="center" justify="center" h="100vh">
+      <Head>
+        <script dangerouslySetInnerHTML={{ 
+          __html: `
+              if (document.cookie && document.cookie.includes('feedme-fast-auth')) {
+                window.location.href = "/dashboard"
+              }
+            ` 
+          }} 
+        />
+      </Head>
       <Logo  w={14} h={14} color="black"/>
       {
         auth?.user ? (
