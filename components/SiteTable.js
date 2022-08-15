@@ -33,11 +33,11 @@ const SiteTable = ({sites}) => {
                     {site.name}
                 </Td>
                 <Td>
-                    {site.url}
+                  <Link href={site.url} isExternal>{site.url}</Link>
                 </Td>
                 <Td>
                    <NextLink href="/p/[siteId]" as={`/p/${site.id}`} passHref>
-                      <Link>View Feedback</Link>
+                      <Link color='blue.400' fontWeight='medium'>View Feedback</Link>
                    </NextLink>
                 </Td>
                 <Td>
