@@ -40,7 +40,7 @@ const AddSiteModal = ({children}) => {
 
       try {
         setLoading(true)
-        await createSite(newSite)
+        const { id } = await createSite(newSite)
         toast({
           title: 'Success!',
           description: "We've added your site.",
@@ -49,9 +49,9 @@ const AddSiteModal = ({children}) => {
           isClosable: true,
         })
         mutate({ url: "/api/sites", token: auth.user.token }, 
-        async (cache) => {
-          return { sites: [...cache.sites, {...newSite, createdAt: new Date().toISOString()}] 
-        }}, false)
+        async (cache) => ({ 
+          sites: [...cache.sites, {id, ...newSite,  createdAt: new Date().toISOString()}] 
+        }), false)
         setLoading(false)
         reset()
         onClose()
