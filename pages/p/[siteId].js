@@ -45,7 +45,7 @@ const SiteFeedback = ({ initialFeedback }) => {
     const inputEl = useRef()
     const [allFeedback, setAllFeedback] = useState(initialFeedback)
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
         
         const newFeedback = {
@@ -58,8 +58,9 @@ const SiteFeedback = ({ initialFeedback }) => {
             status: 'pending'
         }
 
-        setAllFeedback([{...newFeedback, createdAt: newFeedback.createdAt.toDate().toISOString(), id: Math.random().toString().split('.')[1]}, ...allFeedback])
-        createFeedback(newFeedback)
+        const { id } = await createFeedback(newFeedback)
+        setAllFeedback([{id, ...newFeedback, createdAt: newFeedback.createdAt.toDate().toISOString()}, ...allFeedback])
+        inputEl.current.value = ''
     }
 
     return (
