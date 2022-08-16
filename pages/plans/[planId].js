@@ -3,13 +3,39 @@ import { useAuth } from '@/lib/auth'
 import DashboardShell from '@/components/DashboardShell'
 import fetcher from '@/utils/fetcher'
 import PlansHeader from '@/components/PlansHeader'
+import { getAllPlans, getPlan } from '@/lib/db-admin'
+import { useState } from 'react'
 
-const Plans = () => {
+export async function getStaticProps(context) {
   const planId = context.params.planId
-  const { user } = useAuth()
-  const { data } = useSWR(user ? { url: `/api/plans/${planId}`, token: user.token } : null, fetcher)
+  const { plan } = await getPlan(planId)
+  
+  return {
+    props: {
+        initialPlan: plan
+    },
+    revalidate: 1
+  }
+}
 
-  if(!data) {
+export async function getStaticPaths() {
+  const { plans } = await getAllPlans()
+  const paths = plans?.map(plan => ({
+      params: { 
+          planId: plan.id.toString()
+      }
+  }))
+
+  return {
+    paths,
+    fallback: true
+  };
+}
+
+const Plans = ({ initialPlan }) => {
+  const [plan, setPlan] = useState(initialPlan)
+
+  if(!plan) {
     return (
       <DashboardShell>
         <PlansHeader />
@@ -21,7 +47,7 @@ const Plans = () => {
   return (
     <DashboardShell>
       <PlansHeader />
-      {data.plans?.length > 0 ? <h1>There is plan </h1>: <h1>There is not plan</h1>}
+      {plan ? <h1>{plan.name}</h1>: <h1>There is not plan</h1>}
     </DashboardShell>
   )
 }
