@@ -26,6 +26,7 @@ const DashboardShell = ({children}) => {
             <Logo  w={9} h={9} color="black" mr={8} onClick={() => window.location.href = '/'}  _hover={{ cursor: 'pointer' }}/>
             <NextLink href='/dashboard'>Sites</NextLink>
             <NextLink href='/feedback'>Feedback</NextLink>
+            <NextLink href='/plans'>Plans</NextLink>
             </Stack>
             <Flex justifyContent="center" alignItems="center">
             {

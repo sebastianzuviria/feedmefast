@@ -50,7 +50,7 @@ const AddSiteModal = ({children}) => {
         })
         mutate({ url: "/api/sites", token: auth.user.token }, 
         async (cache) => ({ 
-          sites: [...cache.sites, {id, ...newSite,  createdAt: new Date().toISOString()}] 
+          sites: [{id, ...newSite,  createdAt: new Date().toISOString()}, ...cache.sites] 
         }), false)
         setLoading(false)
         reset()
