@@ -4,16 +4,14 @@ import { AuthProvider } from '@/lib/auth'
 import { ChakraProvider, extendTheme, CSSReset } from '@chakra-ui/react'
 import customTheme from '@/styles/theme'
 import '@/styles/globals.css'
+import SEO from '../next-seo.config'
+import { DefaultSeo } from 'next-seo'
 
 const themeProvider = extendTheme({ customTheme })
 
-const GlobalSettings = ({ children }) => {
+const GlobalStyle = ({ children }) => {
   return (
     <>
-      <Head>
-        <title>Feed Me Fast</title>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-      </Head>
       <CSSReset />
       <Global
         styles={css`
@@ -37,7 +35,8 @@ function App({ Component, pageProps }) {
   return (
     <ChakraProvider theme={themeProvider}>
         <AuthProvider>
-          <GlobalSettings />
+          <GlobalStyle />
+          <DefaultSeo {...SEO}/>
           <Component {...pageProps} />
         </AuthProvider>
     </ChakraProvider>
