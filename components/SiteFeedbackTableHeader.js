@@ -8,7 +8,7 @@ import {
   Heading,
 } from '@chakra-ui/react'
 
-const FeedbackTableHeader = ({ siteName }) => (
+const SiteFeedbackTableHeader = ({ siteName }) => (
     <>
         <Breadcrumb>
             <BreadcrumbItem isCurrentPage>
@@ -16,11 +16,14 @@ const FeedbackTableHeader = ({ siteName }) => (
                     <BreadcrumbLink color="grey.700">Feedback</BreadcrumbLink>
                 </NextLink>
             </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>
+                <BreadcrumbLink color="grey.700">{siteName || '-'}</BreadcrumbLink>
+            </BreadcrumbItem>
         </Breadcrumb>
         <Flex justifyContent="space-between" alignItems="center" mb='4'>
-            <Heading color="black">All Feedback</Heading>
+            <Heading color="black">{siteName || '-'}</Heading>
         </Flex>
     </>
 )
 
-export default FeedbackTableHeader
+export default SiteFeedbackTableHeader

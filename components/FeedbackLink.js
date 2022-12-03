@@ -6,7 +6,7 @@ export default function FeedbackLink({ siteId }) {
       <Link
         fontWeight="bold"
         fontSize="sm"
-        href={`/p/${siteId}`}
+        href={`/site/${siteId}`}
         target="_parent"
       >
         Leave a comment →

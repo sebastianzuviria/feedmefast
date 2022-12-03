@@ -6,6 +6,7 @@ import DashboardShell from '@/components/DashboardShell'
 import fetcher from '@/utils/fetcher'
 import FeedbackTable from '@/components/FeedbackTable'
 import FeedbackTableHeader from '@/components/FeedbackTableHeader'
+import Page from '@/components/Page'
 
 const MyFeedback = () => {
   const { user } = useAuth()
@@ -22,10 +23,21 @@ const MyFeedback = () => {
 
   return (
     <DashboardShell>
-        <FeedbackTableHeader />
-        { data.feedback?.length > 0 ? <FeedbackTable allFeedback={data.feedback}/> : <EmptyState />}
+    <FeedbackTableHeader />
+    { data.feedback?.length > 0 ? (
+        <FeedbackTable allFeedback={data.feedback}/> 
+    ) : (
+        <EmptyState />
+    )}
     </DashboardShell>
   )
 }
 
-export default MyFeedback
+const FeedbackPage = () => (
+  <Page name="My Feedback" path="/feedback">
+    <MyFeedback />
+  </Page>
+)
+
+
+export default FeedbackPage

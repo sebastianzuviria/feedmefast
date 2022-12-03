@@ -14,11 +14,11 @@ const SITE_ID = 'UOZSkrYiTSJQMJQktaNA'//process.env.NEXT_PUBLIC_HOME_PAGE_SITE_I
 export async function getStaticProps(context) {
   const { feedback } = await getAllFeedback(SITE_ID);
   const { site } = await getSite(SITE_ID);
-
+  console.log(feedback)
 
   return {
     props: {
-      allFeedback: feedback,
+      allFeedback: JSON.parse(JSON.stringify(feedback)),
       site: JSON.stringify(site)
     },
     revalidate: 1
@@ -53,7 +53,7 @@ const Home = ({ allFeedback, site }) => {
         {auth.user ? (
           <Button
             as="a"
-            href="/dashboard"
+            href="/sites"
             backgroundColor="gray.900"
             color="white"
             fontWeight="medium"
