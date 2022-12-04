@@ -14,7 +14,6 @@ const SITE_ID = 'UOZSkrYiTSJQMJQktaNA'//process.env.NEXT_PUBLIC_HOME_PAGE_SITE_I
 export async function getStaticProps(context) {
   const { feedback } = await getAllFeedback(SITE_ID);
   const { site } = await getSite(SITE_ID);
-  console.log(feedback)
 
   return {
     props: {

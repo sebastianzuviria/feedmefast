@@ -14,8 +14,8 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      initialFeedback: feedback,
-      site
+      initialFeedback: JSON.parse(JSON.stringify(feedback)),
+      site: JSON.stringify(site)
     },
     revalidate: 1
   };
