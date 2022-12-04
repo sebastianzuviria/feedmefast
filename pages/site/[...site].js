@@ -23,9 +23,8 @@ const FeedbackPage = () => {
     ? `/api/feedback/${siteId}/${route}`
     : `/api/feedback/${siteId}`;
 
-  // console.log(feedbackApi)
-  const { data: siteData } = useSWR(user ? { url: `/api/site/${siteId}`, token: user.token } : null, fetcher);
-  const { data: feedbackData } = useSWR(user ? { url: feedbackApi, token: user.token } : null, fetcher);
+  const { data: siteData } = useSWR({ url:`/api/site/${siteId}` }, fetcher);
+  const { data: feedbackData } = useSWR({ url: feedbackApi }, fetcher);
   const site = siteData?.site;
   const allFeedback = feedbackData?.feedback;
 
@@ -47,7 +46,7 @@ const FeedbackPage = () => {
     inputEl.current.value = '';
     const { id } = await createFeedback(newFeedback)
     mutate(
-      { url: feedbackApi, token: user.token },
+      { url: feedbackApi },
       async (data) => {
         const newFeedbackWithTimestamp = {id, ...newFeedback, createdAt: newFeedback.createdAt.toDate().toISOString()}
         return {
