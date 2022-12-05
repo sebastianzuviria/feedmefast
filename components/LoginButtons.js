@@ -1,14 +1,54 @@
-import { Button, Flex, Icon } from '@chakra-ui/react';
+import { useState } from 'react'
+import { 
+  Button, 
+  Flex, 
+  Icon, 
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
 
 const LoginButtons = () => {
+  const [error, setError] = useState()
   const auth = useAuth();
+
+  if(error?.code === 'auth/account-exists-with-different-credential') {
+    return (
+      <Alert
+      status='error'
+      variant='subtle'
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+      textAlign='center'
+      height='200px'
+      onClick={() => setError()}
+    >
+      <AlertIcon boxSize='40px' mr={0} />
+      <AlertTitle mt={4} mb={1} fontSize='lg'>
+        Sign In Error
+      </AlertTitle>
+      <AlertDescription maxWidth='sm'>
+        You already have this email associated with another provider: {error.customData?._tokenResponse?.verifiedProvider[0]}.
+        Click to try again.
+      </AlertDescription>
+    </Alert>
+    )
+  }
 
   return (
     <Flex direction={['column', 'row']}>
       <Button
-        onClick={() => auth.signinWithGitHub()}
+        onClick={async () => { 
+         try {
+           await auth.signinWithGithub()
+         } catch (error) {
+            setError(error)
+         }
+        }}
         backgroundColor="gray.900"
         color="white"
         fontWeight="medium"
@@ -36,7 +76,13 @@ const LoginButtons = () => {
         Continue with GitHub
       </Button>
       <Button
-        onClick={() => auth.signinWithGoogle()}
+        onClick={async () => { 
+          try {
+            await auth.signinWithGoogle()
+          } catch (error) {
+             setError(error)
+          }
+         }}
         backgroundColor="white"
         color="gray.900"
         variant="outline"

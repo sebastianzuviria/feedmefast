@@ -6,6 +6,7 @@ import customTheme from '@/styles/theme'
 import '@/styles/globals.css'
 import SEO from '../next-seo.config'
 import { DefaultSeo } from 'next-seo'
+import ProtectedRoutes from '@/components/ProtectedRoutes'
 
 const themeProvider = extendTheme({ customTheme })
 
@@ -31,13 +32,15 @@ const GlobalStyle = ({ children }) => {
 };
 
 
-function App({ Component, pageProps }) {
+function App({ Component, pageProps, router }) {
   return (
     <ChakraProvider theme={themeProvider}>
         <AuthProvider>
-          <GlobalStyle />
-          <DefaultSeo {...SEO}/>
-          <Component {...pageProps} />
+          <ProtectedRoutes router={router}>
+            <GlobalStyle />
+            <DefaultSeo {...SEO}/>
+            <Component {...pageProps} />
+          </ProtectedRoutes>
         </AuthProvider>
     </ChakraProvider>
   )}

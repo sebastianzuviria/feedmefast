@@ -81,7 +81,7 @@ const FeedbackPage = () => {
   return (
     <DashboardShell>
       <SiteHeader
-        isSiteOwner={site?.authorId === user?.uid}
+        isSiteOwner={user && site?.authorId === user?.uid}
         site={site}
         siteId={siteId}
         route={route}

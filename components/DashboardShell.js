@@ -25,8 +25,8 @@ const DashboardShell = ({children}) => {
                 >
                     <Stack spacing={4} isInline justifyContent="center" alignItems="center">
                     <Logo  w={9} h={9} color="black" mr={8} onClick={() => window.location.href = '/'}  _hover={{ cursor: 'pointer' }}/>
-                    <NextLink href='/sites'>Sites</NextLink>
-                    <NextLink href='/feedback'>Feedback</NextLink>
+                    { auth?.user && <NextLink href='/sites'>Sites</NextLink> }
+                    { auth?.user && <NextLink href='/feedback'>Feedback</NextLink> }
                     </Stack>
                     <Flex justifyContent="center" alignItems="center">
                     {

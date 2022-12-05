@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useAuth } from '@/lib/auth'
-import { Button, Flex, Icon, Text, Box, Link } from '@chakra-ui/react'
+import { Flex, Text, Box, Spinner } from '@chakra-ui/react'
 import { Logo } from '@/styles/icons'
 
 import { getAllFeedback, getSite } from '@/lib/db-admin'
@@ -8,6 +8,7 @@ import Feedback from '@/components/Feedback';
 import FeedbackLink from '@/components/FeedbackLink';
 import LoginButtons from '@/components/LoginButtons'
 import Footer from '@/components/Footer'
+import NextLink from 'next/link'
 
 const SITE_ID = 'UOZSkrYiTSJQMJQktaNA'//process.env.NEXT_PUBLIC_HOME_PAGE_SITE_ID;
 
@@ -49,26 +50,31 @@ const Home = ({ allFeedback, site }) => {
           </Text>
           {`. It's the easiest way to add comments or reviews to your static site. Try it out by leaving a comment below. After the comment is approved, it will display below.`}
         </Text>
-        {auth.user ? (
-          <Button
-            as="a"
-            href="/sites"
-            backgroundColor="gray.900"
-            color="white"
-            fontWeight="medium"
-            mt={4}
-            maxW="200px"
-            _hover={{ bg: 'gray.700' }}
-            _active={{
-              bg: 'gray.800',
-              transform: 'scale(0.95)'
-            }}
-          >
-            View Dashboard
-          </Button>
-        ) : (
-          <LoginButtons />
-        )}
+        {
+          !auth.loading ? (
+            auth.user ? (
+              <NextLink
+                href="/sites"
+                backgroundColor="gray.900"
+                color="white"
+                fontWeight="medium"
+                mt={4}
+                maxW="200px"
+                _hover={{ bg: 'gray.700' }}
+                _active={{
+                  bg: 'gray.800',
+                  transform: 'scale(0.95)'
+                }}
+              >
+                View Dashboard
+              </NextLink>
+            ) : (
+              <LoginButtons />
+          )
+            ) : (
+              <Spinner />
+          )
+        }
       </Flex>
     </Box>
     <Box
@@ -80,7 +86,7 @@ const Home = ({ allFeedback, site }) => {
       mt={8}
       px={4}
     >
-      <FeedbackLink siteId={SITE_ID} />
+      <FeedbackLink paths={[SITE_ID]} />
       {allFeedback.map((feedback, index) => (
         <Feedback
           key={feedback.id}

@@ -15,6 +15,7 @@ import {
   useToast,
   useDisclosure
 } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons'
 
 import { updateSite } from '@/lib/db';
 
@@ -46,7 +47,7 @@ const EditSiteModal = ({ settings, siteId, children }) => {
         backgroundColor="gray.900"
         color="white"
         fontWeight="medium"
-        leftIcon="settings"
+        leftIcon={<EditIcon />}
         _hover={{ bg: 'gray.700' }}
         _active={{
           bg: 'gray.800',
