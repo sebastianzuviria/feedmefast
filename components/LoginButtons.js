@@ -7,6 +7,7 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  Spinner
 } from '@chakra-ui/react';
 
 import { useAuth } from '@/lib/auth';
@@ -14,6 +15,10 @@ import { useAuth } from '@/lib/auth';
 const LoginButtons = () => {
   const [error, setError] = useState()
   const auth = useAuth();
+
+  if(auth.loading) {
+    return <Spinner />
+  }
 
   if(error?.code === 'auth/account-exists-with-different-credential') {
     return (

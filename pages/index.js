@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useAuth } from '@/lib/auth'
-import { Flex, Text, Box, Spinner } from '@chakra-ui/react'
+import { Flex, Text, Box } from '@chakra-ui/react'
 import { Logo } from '@/styles/icons'
 
 import { getAllFeedback, getSite } from '@/lib/db-admin'
@@ -51,7 +51,6 @@ const Home = ({ allFeedback, site }) => {
           {`. It's the easiest way to add comments or reviews to your static site. Try it out by leaving a comment below. After the comment is approved, it will display below.`}
         </Text>
         {
-          !auth.loading ? (
             auth.user ? (
               <NextLink
                 href="/sites"
@@ -70,9 +69,6 @@ const Home = ({ allFeedback, site }) => {
               </NextLink>
             ) : (
               <LoginButtons />
-          )
-            ) : (
-              <Spinner />
           )
         }
       </Flex>

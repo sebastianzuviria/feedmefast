@@ -23,19 +23,23 @@ import fetcher from '@/utils/fetcher'
 
 
 const AddSiteModal = ({children}) => {
+    const auth = useAuth()
+    const toast = useToast()
     const [loading, setLoading] = useState(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { register, handleSubmit, reset } = useForm()
-    const toast = useToast()
-    const auth = useAuth()
-    const { data } = useSWR('/api/sites', fetcher)
 
     const onCreateSite = async ({name, url}) => {
       const newSite = {
         authorId: auth.user.uid,
         createdAt: Timestamp.fromDate(new Date()),
         name, 
-        url
+        url,
+        settings: {
+          icons: false,
+          timestamp: false,
+          ratings: false
+        }
       }
 
       try {
